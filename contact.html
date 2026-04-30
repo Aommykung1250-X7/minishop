@@ -70,7 +70,12 @@
 	          <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
 	          <li class="nav-item active"><a href="blog.html" class="nav-link">Blog</a></li>
 	          <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
-	          <li class="nav-item cta cta-colored"><a href="cart.html" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
+	          <li class="nav-item cta cta-colored">
+                <a href="cart.html" class="nav-link">
+                    <span class="icon-shopping_cart"></span>
+                    <span id="cart-count">[0]</span> <!-- ใส่ id ตรงนี้เพื่อให้ JS หาเจอง่ายๆ -->
+                </a>
+            </li>
 
 	        </ul>
 	      </div>
@@ -295,6 +300,11 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
   <script src="js/google-map.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/cart.js"></script>
+	<script>
+	document.addEventListener('DOMContentLoaded', () => {
+        loadLocalStorage(); 
+    });</script>
     
   </body>
 </html>

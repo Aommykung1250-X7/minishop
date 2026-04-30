@@ -70,7 +70,12 @@
 	          <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
 	          <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
 	          <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
-	          <li class="nav-item cta cta-colored"><a href="cart.html" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
+	          <li class="nav-item cta cta-colored">
+                <a href="cart.html" class="nav-link">
+                    <span class="icon-shopping_cart"></span>
+                    <span id="cart-count">[0]</span> <!-- ใส่ id ตรงนี้เพื่อให้ JS หาเจอง่ายๆ -->
+                </a>
+            </li>
 
 	        </ul>
 	      </div>
@@ -95,88 +100,47 @@
     			<div class="col-md-12 ftco-animate">
     				<div class="cart-list">
 	    				<table class="table">
-						    <thead class="thead-primary">
-						      <tr class="text-center">
-						        <th>&nbsp;</th>
-						        <th>&nbsp;</th>
-						        <th>Product</th>
-						        <th>Price</th>
-						        <th>Quantity</th>
-						        <th>Total</th>
-						      </tr>
-						    </thead>
-						    <tbody>
-						      <tr class="text-center">
-						        <td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
-						        
-						        <td class="image-prod"><div class="img" style="background-image:url(images/product-3.jpg);"></div></td>
-						        
-						        <td class="product-name">
-						        	<h3>Nike Free RN 2019 iD</h3>
-						        	<p>Far far away, behind the word mountains, far from the countries</p>
-						        </td>
-						        
-						        <td class="price">$4.90</td>
-						        
-						        <td class="quantity">
-						        	<div class="input-group mb-3">
-					             	<input type="text" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
-					          	</div>
-					          </td>
-						        
-						        <td class="total">$4.90</td>
-						      </tr><!-- END TR-->
-
-						      <tr class="text-center">
-						        <td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
-						        
-						        <td class="image-prod"><div class="img" style="background-image:url(images/product-4.jpg);"></div></td>
-						        
-						        <td class="product-name">
-						        	<h3>Nike Free RN 2019 iD</h3>
-						        	<p>Far far away, behind the word mountains, far from the countries</p>
-						        </td>
-						        
-						        <td class="price">$15.70</td>
-						        
-						        <td class="quantity">
-						        	<div class="input-group mb-3">
-					             	<input type="text" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
-					          	</div>
-					          </td>
-						        
-						        <td class="total">$15.70</td>
-						      </tr><!-- END TR-->
-						    </tbody>
-						  </table>
+							<thead class="thead-primary">
+								<tr class="text-center">
+									<th>&nbsp;</th>
+									<th>Product List</th>
+									<th>&nbsp;</th>
+									<th>Price</th>
+									<th>Quantity</th>
+									<th>Total</th>
+								</tr>
+							</thead>
+							<tbody id="cart-items-container">
+								<!-- รายการสินค้าจะมาแสดงตรงนี้ -->
+							</tbody>
+						</table>
 					  </div>
     			</div>
     		</div>
     		<div class="row justify-content-start">
-    			<div class="col col-lg-5 col-md-6 mt-5 cart-wrap ftco-animate">
-    				<div class="cart-total mb-3">
-    					<h3>Cart Totals</h3>
-    					<p class="d-flex">
-    						<span>Subtotal</span>
-    						<span>$20.60</span>
-    					</p>
-    					<p class="d-flex">
-    						<span>Delivery</span>
-    						<span>$0.00</span>
-    					</p>
-    					<p class="d-flex">
-    						<span>Discount</span>
-    						<span>$3.00</span>
-    					</p>
-    					<hr>
-    					<p class="d-flex total-price">
-    						<span>Total</span>
-    						<span>$17.60</span>
-    					</p>
-    				</div>
-    				<p class="text-center"><a href="checkout.html" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
-    			</div>
-    		</div>
+				<div class="col col-lg-5 col-md-6 mt-5 cart-wrap ftco-animate">
+					<div class="cart-total mb-3">
+						<h3>Cart Totals</h3>
+						<p class="d-flex">
+							<span>Subtotal</span>
+							<span id="cart-subtotal">$0.00</span> <!-- ใส่ id เพื่อรอรับค่า -->
+						</p>
+						<p class="d-flex">
+							<span>Delivery</span>
+							<span id="cart-delivery">$0.00</span>
+						</p>
+						<p class="d-flex">
+							<span>Discount</span>
+							<span id="cart-discount">$0.00</span>
+						</p>
+						<hr>
+						<p class="d-flex total-price">
+							<span>Total</span>
+							<span id="cart-total-final">$0.00</span> <!-- ใส่ id เพื่อรอรับค่า -->
+						</p>
+					</div>
+					<p class="text-center"><a href="checkout.html" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
+				</div>
 			</div>
 		</section>
 		
@@ -277,42 +241,89 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
   <script src="js/google-map.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/cart.js"></script>
+	<script>
+	document.addEventListener('DOMContentLoaded', () => {
+		loadLocalStorage(); 
+	});</script>
 
-  <script>
-		$(document).ready(function(){
+	<script>
+		/**
+		 * ฟังก์ชันโหลดข้อมูลจาก LocalStorage และแสดงผลในหน้า Cart
+		 */
+		function displayCartItems() {
+			// 1. ดึงข้อมูลจาก Local Storage
+			const savedCart = localStorage.getItem('shopping_cart');
+			const container = document.getElementById('cart-items-container');
+			
+			if (!container) return;
+			if (!savedCart || JSON.parse(savedCart).length === 0) {
+				container.innerHTML = '<tr class="text-center"><td colspan="6" class="py-5">ตะกร้าสินค้าว่างเปล่า</td></tr>';
+				return;
+			}
 
-		var quantitiy=0;
-		   $('.quantity-right-plus').click(function(e){
-		        
-		        // Stop acting like a button
-		        e.preventDefault();
-		        // Get the field name
-		        var quantity = parseInt($('#quantity').val());
-		        
-		        // If is not undefined
-		            
-		            $('#quantity').val(quantity + 1);
+			const cartData = JSON.parse(savedCart);
+			let htmlContent = '';
 
-		          
-		            // Increment
-		        
-		    });
+			// 2. วนลูปข้อมูลในตะกร้าเพื่อสร้าง HTML
+			cartData.forEach(item => {
+				// คำนวณราคารวมของแต่ละรายการ (ลบเครื่องหมาย $ ออกก่อนเพื่อคำนวณ)
+				const priceNum = parseFloat(item.price.replace('$', ''));
+				const rowTotal = (priceNum * item.quantity).toFixed(2);
 
-		     $('.quantity-left-minus').click(function(e){
-		        // Stop acting like a button
-		        e.preventDefault();
-		        // Get the field name
-		        var quantity = parseInt($('#quantity').val());
-		        
-		        // If is not undefined
-		      
-		            // Increment
-		            if(quantity>0){
-		            $('#quantity').val(quantity - 1);
-		            }
-		    });
-		    
-		});
+				htmlContent += `
+					<tr class="text-center">
+						<td class="product-remove">
+							<a href="#" onclick="removeItem('${item.id}')"><span class="ion-ios-close"></span></a>
+						</td>
+						
+						<td class="image-prod">
+							<div class="img" style="background-image:url(${item.image_url});"></div>
+						</td>
+						
+						<td class="product-name">
+							<h3>${item.product_name}</h3>
+						</td>
+						
+						<td class="price">${item.price}</td>
+						
+						<td class="quantity">
+							<div class="input-group mb-3" style="width: 150px; margin: 0 auto; ">
+								<div class="input-group-prepend">
+									<button class="btn btn-outline-primary" type="button" onclick="updateQty('${item.id}', -1)">-</button>
+								</div>
+								
+								<input type="text" class="form-control text-center" 
+									value="${item.quantity}" readonly> <!-- readonly กันคนพิมพ์แก้เอง -->
+								
+								<div class="input-group-append">
+									<button class="btn btn-outline-primary" type="button" onclick="updateQty('${item.id}', 1)">+</button>
+								</div>
+							</div>
+						</td>
+						
+						<td class="total">$${rowTotal}</td>
+					</tr>`;
+			});
+
+			container.innerHTML = htmlContent;
+			calculateCartTotals();
+		}
+
+		/**
+		 * ฟังก์ชันลบสินค้าออกจากตะกร้า (แถมให้ครับ)
+		 */
+		function removeItem(id) {
+			let savedCart = JSON.parse(localStorage.getItem('shopping_cart')) || [];
+			// กรองเอาเฉพาะตัวที่ ID ไม่ตรงออก[cite: 2]
+			savedCart = savedCart.filter(item => item.id != id);
+			localStorage.setItem('shopping_cart', JSON.stringify(savedCart));
+			displayCartItems(); // โหลดหน้าจอใหม่
+			updateCartUI(); // อัปเดตตัวเลขบน Navbar (ถ้ามี)[cite: 2]
+		}
+
+		// เรียกใช้งานเมื่อโหลดหน้าเว็บเสร็จ
+		document.addEventListener('DOMContentLoaded', displayCartItems);
 	</script>
     
   </body>

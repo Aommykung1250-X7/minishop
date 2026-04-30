@@ -9721,6 +9721,44 @@ textarea.form-control {
     #map {
       height: 300px; } }
 
+/* Search Box Styling */
+.search-box {
+  position: relative;
+  margin-bottom: 20px; }
+
+.search-form {
+  width: 100%; }
+
+.search-form .form-group {
+  position: relative;
+  margin-bottom: 0; }
+
+.search-form input[type="text"] {
+  width: 100%;
+  padding: 10px 40px 10px 12px;
+  border: 1px solid #e8e8e8;
+  border-radius: 4px;
+  font-size: 13px;
+  color: #333;
+  transition: all 0.3s ease; }
+
+.search-form input[type="text"]:focus {
+  outline: none;
+  border-color: #dbcc8f;
+  box-shadow: 0 0 5px rgba(219, 204, 143, 0.3); }
+
+.search-form input[type="text"]::placeholder {
+  color: #999; }
+
+.btn-search {
+  padding: 0 !important;
+  height: auto !important;
+  color: #999 !important;
+  transition: all 0.3s ease; }
+
+.btn-search:hover {
+  color: #dbcc8f !important; }
+
 @-webkit-keyframes pulse {
   0% {
     -webkit-box-shadow: 0 0 0 0 rgba(219, 204, 143, 0.4); }
