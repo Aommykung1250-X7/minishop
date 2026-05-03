@@ -1,16 +1,21 @@
-const fs = require('fs');
+const fs = require('fs').promises;
 const path = require('path');
-
-// กำหนดพาธไปยังไฟล์ JSON
 const dataPath = path.join(__dirname, '../../data/products.json');
 
-const getAllProducts = () => {
-    try {
-        const rawData = fs.readFileSync(dataPath, 'utf8');
-        return JSON.parse(rawData);
-    } catch (error) {
-        throw new Error("ไม่สามารถอ่านข้อมูลสินค้าได้");
-    }
+// [Processing] ฟังก์ชันรื้อตู้เย็น (JSON) เพื่อหาของตามสั่ง
+const filterProductsByCategory = async (category) => {
+    const rawData = await fs.readFile(dataPath, 'utf8');
+    const allProducts = JSON.parse(rawData);
+
+    // ทำการร่อน (Filter) โดยใช้ .toLowerCase() ป้องกันปัญหาตัวพิมพ์เล็ก-ใหญ่
+    return allProducts.filter(p => 
+        p.category.toLowerCase() === category.toLowerCase()
+    );
 };
 
-module.exports = { getAllProducts };
+const getAllProducts = async () => {
+    const rawData = await fs.readFile(dataPath, 'utf8');
+    return JSON.parse(rawData);
+};
+
+module.exports = { filterProductsByCategory, getAllProducts };

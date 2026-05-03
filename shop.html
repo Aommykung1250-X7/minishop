@@ -140,55 +140,24 @@
                      <div class="panel panel-default">
                          <div class="panel-heading" role="tab" id="headingOne">
                              <h4 class="panel-title">
-                                 <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Men's Shoes
+                                 <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Choose Shoes
                                  </a>
                              </h4>
                          </div>
                          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
                              <div class="panel-body">
-                                 <ul>
-                                 	<li><a href="#" onclick="currentCategory='All'; return false;">All Products</a></li>
-                                 	<li><a href="#">Lifestyle</a></li>
-                                 	<li><a href="#">Running</a></li>
-                                 	<li><a href="#">Basketball</a></li>
-                                 	<li><a href="#">Training</a></li>
-                                 	<li><a href="#">Casual</a></li>
-                                 </ul>
-                             </div>
-                         </div>
-                     </div>
-                     <div class="panel panel-default">
-                         <div class="panel-heading" role="tab" id="headingTwo">
-                             <h4 class="panel-title">
-                                 <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Women's Shoes
-                                 </a>
-                             </h4>
-                         </div>
-                         <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                             <div class="panel-body">
                                 <ul>
-                                 	<li><a href="#">Lifestyle</a></li>
-                                 	<li><a href="#">Running</a></li>
-                                 	<li><a href="#">Casual</a></li>
+                                    <li><a href="#" onclick="fetchByCategory('All'); return false;">All Products</a></li>
+                                    <li><a href="#" onclick="fetchByCategory('Lifestyle'); return false;">Lifestyle</a></li>
+                                    <li><a href="#" onclick="fetchByCategory('Running'); return false;">Running</a></li>
+                                    <li><a href="#" onclick="fetchByCategory('Basketball'); return false;">Basketball</a></li>
+                                    <li><a href="#" onclick="fetchByCategory('Training'); return false;">Training</a></li>
+                                    <li><a href="#" onclick="fetchByCategory('Casual'); return false;">Casual</a></li>
                                 </ul>
-                             </div>
+                            </div>
                          </div>
                      </div>
-                     <div class="panel panel-default">
-                         <div class="panel-heading" role="tab" id="headingThree">
-                             <h4 class="panel-title">
-                                 <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">Accessories
-                                 </a>
-                             </h4>
-                         </div>
-                         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-                             <div class="panel-body">
-                                <ul>
-                                 	<li><a href="#">Shoes</a></li>
-                                 </ul>
-                             </div>
-                         </div>
-                     </div>
+                     
                   </div>
                </div>
 							</div>
@@ -413,6 +382,28 @@
             </div>`;
         });
         container.innerHTML = htmlContent;
+    }
+
+    // [Request] ฟังก์ชันส่ง "ซองจดหมาย" (Envelope) ไปยัง Server
+    async function fetchByCategory(category) {
+        try {
+            let url = 'http://localhost:3000/api/products';
+            
+            // ถ้าไม่ใช่ 'All' ให้ส่ง Query Parameter ไปด้วย
+            if (category !== 'All') {
+                url = `http://localhost:3000/api/products/filter?category=${category}`;
+            }
+
+            const response = await fetch(url);
+            const result = await response.json(); // [Response] รับ "Package" JSON กลับมา
+
+            if (result.status === 'success') {
+                // ส่งข้อมูลใน Package (data) ไปวาดหน้าเว็บ
+                renderProducts(result.data || result); 
+            }
+        } catch (error) {
+            console.error("เกิดข้อผิดพลาด:", error);
+        }
     }
 
     // 4. เชื่อมต่อช่องค้นหากับฟังก์ชัน Filter
