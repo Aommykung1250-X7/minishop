@@ -76,7 +76,12 @@
                     <span id="cart-count">[0]</span> <!-- ใส่ id ตรงนี้เพื่อให้ JS หาเจอง่ายๆ -->
                 </a>
             </li>
-
+            <li class="nav-item" id="auth-nav-item">
+                <a href="#" class="nav-link" data-toggle="modal" data-target="#loginModal"> Login </a>
+            </li>
+            <li class="nav-item" id="reg-nav-item"> <!-- เพิ่ม ID ตรงนี้ -->
+                <a href="#" class="nav-link" data-toggle="modal" data-target="#registerModal"> Register </a>
+            </li>
 	        </ul>
 	      </div>
 	    </div>
@@ -278,7 +283,68 @@
       </div>
     </footer>
     
-  
+    <!-- โครงสร้าง Login Pop-up (วางไว้ล่างสุดของไฟล์ html ก่อนปิด </body>) -->
+    <div class="modal fade" id="loginModal" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Login to Minishop</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body py-4">
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label>Email (Username)</label>
+                            <input type="email" id="loginEmail" class="form-control" placeholder="example@mail.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" id="loginPassword" class="form-control" placeholder="••••••••" required>
+                        </div>
+                        <div id="loginMessage"></div>
+                        <button type="submit" class="btn btn-primary btn-block py-3 mt-4">Sign In</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- [UI] Register Pop-up (Modal) -->
+    <div class="modal fade" id="registerModal" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create New Account</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body py-4">
+                    <form id="registerForm">
+                        <div class="form-group">
+                            <label>First Name</label>
+                            <input type="text" id="regName" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email (Username)</label>
+                            <input type="email" id="regEmail" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" id="regPassword" class="form-control" required>
+                            <small class="form-text text-muted">
+                                Min 8 characters, 1 uppercase, 1 special character (!@#$%^&*)
+                            </small>
+                        </div>
+                        <div id="regMessage"></div>
+                        <button type="submit" class="btn btn-black btn-block py-3 mt-4">Register Now</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
   <!-- loader -->
   <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
@@ -301,6 +367,7 @@
   <script src="js/google-map.js"></script>
   <script src="js/main.js"></script>
   <script src="js/cart.js"></script>
+  <script src="js/auth.js"></script>
 	<script>
 	document.addEventListener('DOMContentLoaded', () => {
         loadLocalStorage(); 
