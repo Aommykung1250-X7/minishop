@@ -391,13 +391,22 @@
 
     // 1. ฟังก์ชันดึงข้อมูลจาก JSON (เหมือนที่เพื่อนคุณทำ)
     async function LoadProducts() {
-        const dataSource = 'data/json/products.json';
+        const dataSource = 'http://localhost:3000/api/products'; 
         try {
             const response = await fetch(dataSource);
+            
             if (!response.ok) throw new Error("Fetch failed");
             
-            allProducts = await response.json();
-            renderProducts(allProducts); // แสดงสินค้าทั้งหมดครั้งแรก
+            const result = await response.json(); // รับ Object ที่มี status และ data
+            
+            // เข้าถึง Array สินค้าที่อยู่ใน result.data ตามโครงสร้าง Backend ของคุณ
+            if (result.status === 'success' && Array.isArray(result.data)) {
+                allProducts = result.data;
+                renderProducts(allProducts);
+            } else {
+                console.error("รูปแบบข้อมูลไม่ถูกต้อง:", result);
+            }
+
         } catch (error) {
             console.error("Error:", error);
         }
@@ -418,31 +427,38 @@
     // 3. ฟังก์ชันสร้าง HTML (Render)
     function renderProducts(products) {
         const container = document.getElementById('product-list-container');
-        if (!container) return;
+        if (!container || !Array.isArray(products)) return;
 
         let htmlContent = '';
         products.forEach(product => {
-            // ส่วนหนึ่งภายในฟังก์ชัน renderProducts
+            // หากรูปอยู่ที่ minishop/images และไฟล์ html นี้อยู่ที่หน้าแรกของ minishop
+            // ให้ดึงชื่อไฟล์รูปจาก product.image_url มาประกอบกับ path 'images/'
+            
+            // สมมติว่าใน JSON เก็บค่า image_url เป็น "product1.jpg" หรือ "images/product1.jpg"
+            const fileName = product.image_url.split('/').pop(); // ดึงเฉพาะชื่อไฟล์ออกมา
+            const imageUrl = `images/${fileName}`;
+
             htmlContent += `
             <div class="col-sm-12 col-md-12 col-lg-4 d-flex">
                 <div class="product">
-                    <a href="${product.link}" class="img-prod">
-                        <img class="img-fluid" src="${product.image_url}" alt="">
+                    <a href="${product.link || '#'}" class="img-prod">
+                        <img class="img-fluid" src="${imageUrl}" alt="${product.product_name}">
                         <div class="overlay"></div>
                     </a>
                     <div class="text py-3 pb-4 px-3">
-                        <!-- ข้อมูลชื่อและราคา -->
                         <h3><a href="#">${product.product_name}</a></h3>
                         <div class="pricing">
                             <p class="price"><span>${product.price_sale}</span></p>
                         </div>
-
-                        <!-- ส่วนปุ่มที่ต้องการให้โชว์ตอน Hover -->
                         <p class="bottom-area d-flex px-3">
-                            <a href="#" class="add-to-cart text-center py-2 mr-1" data-id="${product.id}" data-price="${product.price_sale}">
+                            <a href="#" class="add-to-cart text-center py-2 mr-1" 
+                            data-id="${product.id}" 
+                            data-name="${product.product_name}"
+                            data-price="${product.price_sale}"
+                            data-image="${imageUrl}">
                                 <span>Add to cart <i class="ion-ios-add ml-1"></i></span>
                             </a>
-                            <a href="#" class="buy-now text-center py-2">
+                            <a href="checkout.html" class="buy-now text-center py-2">
                                 Buy now<span><i class="ion-ios-cart ml-1"></i></span>
                             </a>
                         </p>

@@ -1,71 +1,83 @@
 [
   {
+    "user_id": 1,
     "username": "phanuwat.u@example.com",
     "password_hash": "e10adc3949ba59abbe56e057f20f883e",
     "first_name": "Phanuwat",
     "registration_date": "2026-05-01"
   },
   {
+    "user_id": 2,
     "username": "somsak.j@example.com",
     "password_hash": "202cb962ac59075b964b07152d234b70",
     "first_name": "Somsak",
     "registration_date": "2026-05-01"
   },
   {
+    "user_id": 3,
     "username": "nattapol.s@example.com",
     "password_hash": "f623e75af30e62bbd73d6df5b50bb7b5",
     "first_name": "Nattapol",
     "registration_date": "2026-05-02"
   },
   {
+    "user_id": 4,
     "username": "kitti.p@example.com",
     "password_hash": "827ccb0eea8a706c4c34a16891f84e7b",
     "first_name": "Kitti",
     "registration_date": "2026-05-02"
   },
   {
+    "user_id": 5,
     "username": "vipa.w@example.com",
     "password_hash": "01cfcd4f6b8770febfb9a838858db3ed",
     "first_name": "Vipa",
     "registration_date": "2026-05-03"
   },
   {
+    "user_id": 6,
     "username": "anucha.c@example.com",
     "password_hash": "5d41402abc4b2a76b9719d911017c592",
     "first_name": "Anucha",
     "registration_date": "2026-05-03"
   },
   {
+    "user_id": 7,
     "username": "manee.k@example.com",
     "password_hash": "7d0961d3680e556e024227918386f671",
     "first_name": "Manee",
     "registration_date": "2026-05-04"
   },
   {
+    "user_id": 8,
     "username": "piti.m@example.com",
     "password_hash": "25d55ad283aa400af464c76d713c07ad",
     "first_name": "Piti",
     "registration_date": "2026-05-04"
   },
   {
+    "user_id": 9,
     "username": "sunisa.t@example.com",
     "password_hash": "8d393717281c74d8ca6b05df9a460980",
     "first_name": "Sunisa",
     "registration_date": "2026-05-04"
   },
   {
+    "user_id": 10,
     "username": "weera.b@example.com",
     "password_hash": "4a7d1ed414474e4033ac29ccb8653d9b",
     "first_name": "Weera",
     "registration_date": "2026-05-04"
   },
   {
+    "user_id": 11,
     "username": "papitch@gmail.com",
     "password_hash": "b337bf519e92026815daa1c963bc160d",
     "first_name": "Papitch",
     "registration_date": "2026-05-04"
   },
   {
+    "user_id": 12,
     "username": "aom1250@gmail.com",
     "password_hash": "b337bf519e92026815daa1c963bc160d",
     "first_name": "Aom",

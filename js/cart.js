@@ -142,32 +142,41 @@ function loadLocalStorage() {
  * ฟังก์ชันคำนวณราคาสรุปในหน้าตะกร้าสินค้า
  */
 function calculateCartTotals() {
-    // 1. ดึงข้อมูลจาก Local Storage
+    // 1. ดึงข้อมูลจาก Local Storage (ใช้ชื่อ Key เดิมของคุณ)
     const savedCart = localStorage.getItem('shopping_cart');
     let subtotal = 0;
 
     if (savedCart) {
         const cartData = JSON.parse(savedCart);
         
-        // 2. คำนวณราคารวมสินค้าทั้งหมด (Price * Quantity)
+        // 2. คำนวณราคารวมสินค้าทั้งหมด
         subtotal = cartData.reduce((total, item) => {
-            // ลบเครื่องหมาย $ ออกและแปลงเป็นตัวเลขเพื่อคำนวณ
-            const price = parseFloat(item.price.replace('$', ''));
+            // ลบเครื่องหมาย $ ออกก่อนแปลงเป็นตัวเลข (รองรับรูปแบบราคาของคุณ)
+            const price = typeof item.price === 'string' 
+                ? parseFloat(item.price.replace('$', '')) 
+                : item.price;
             return total + (price * item.quantity);
         }, 0);
     }
 
-    // 3. กำหนดค่าคงที่ (เช่น ค่าขนส่ง หรือ ส่วนลด)
+    // 3. ตั้งค่าคงที่สำหรับหน้า Checkout
     const delivery = 0.00; 
-    const discount = 0.00; // คุณสามารถเขียน Logic เพิ่มเติมเพื่อคำนวณส่วนลดได้ที่นี่
+    const discount = 0.00; 
     const finalTotal = subtotal + delivery - discount;
 
-    // 4. อัปเดตตัวเลขลงในหน้า HTML[cite: 2]
+    // 4. อัปเดตตัวเลขลงใน HTML ตาม ID ที่เราตั้งไว้[cite: 1]
     const subtotalEl = document.getElementById('cart-subtotal');
+    const deliveryEl = document.getElementById('cart-delivery');
+    const discountEl = document.getElementById('cart-discount');
     const totalFinalEl = document.getElementById('cart-total-final');
 
     if (subtotalEl) subtotalEl.innerText = `$${subtotal.toFixed(2)}`;
+    if (deliveryEl) deliveryEl.innerText = `$${delivery.toFixed(2)}`;
+    if (discountEl) discountEl.innerText = `$${discount.toFixed(2)}`;
     if (totalFinalEl) totalFinalEl.innerText = `$${finalTotal.toFixed(2)}`;
     
-    console.log("คำนวณราคาสรุปเรียบร้อย:", { subtotal, finalTotal });
+    console.log("Checkout Totals Updated:", { subtotal, finalTotal });
 }
+
+// เรียกใช้ฟังก์ชันทันทีเมื่อโหลดหน้า Checkout[cite: 1]
+document.addEventListener('DOMContentLoaded', calculateCartTotals);
